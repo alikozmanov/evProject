@@ -47,8 +47,32 @@ public class EvalProjectApplication implements CommandLineRunner {
 	private void generateDatas() {
 		City paris = new City("Paris", "Hyatt Regency Paris Étoile");
 		City newYork = new City("New York", "Colgate Inn");
+		City london = new City("London", "The Ritz London");
+		City tokyo = new City("Tokyo", "The Peninsula Tokyo");
+		City rome = new City("Rome", "Hotel de Russie");
+		City sydney = new City("Sydney", "The Langham Sydney");
+		City berlin = new City("Berlin", "Hotel Adlon Kempinski");
+		City madrid = new City("Madrid", "Hotel Ritz Madrid");
+		City losAngeles = new City("Los Angeles", "The Beverly Hills Hotel");
+		City dubai = new City("Dubai", "Burj Al Arab Jumeirah");
+		City amsterdam = new City("Amsterdam", "Hotel De L’Europe");
+		City barcelona = new City("Barcelona", "Hotel Arts Barcelona");
+		City venice = new City("Venice", "Aman Venice");
+		City prague = new City("Prague", "Four Seasons Hotel Prague");
 
 		cityRepository.save(paris);
 		cityRepository.save(newYork);
-		}
+		cityRepository.save(london);
+		cityRepository.save(tokyo);
+		cityRepository.save(rome);
+		cityRepository.save(sydney);
+		cityRepository.save(berlin);
+		cityRepository.save(madrid);
+		cityRepository.save(losAngeles);
+		cityRepository.save(dubai);
+		cityRepository.save(amsterdam);
+		cityRepository.save(barcelona);
+		cityRepository.save(venice);
+		cityRepository.save(prague);
 	}
+}
