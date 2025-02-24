@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hôtels à [[${city.name}]]</title>
+</head>
+<body>
+
+<h1>Hôtels à [[${city.name}]]</h1>
+
+<!-- Afficher les hôtels de cette ville -->
+<div th:each="hotel : ${hotels}">
+    <h2 th:text="${hotel.name}">Nom de l'hôtel</h2>
+    <p th:text="${hotel.address}">Adresse de l'hôtel</p>
+    <p th:text="${hotel.phone}">Numéro de téléphone</p>
+    <p th:text="${hotel.stars}">Étoiles de l'hôtel</p>
+    <p th:text="${hotel.rooms}">Nombre de chambres</p>
+</div>
+
+</body>
+</html>

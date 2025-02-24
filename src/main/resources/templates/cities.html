@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Villes et Hôtels</title>
+</head>
+<body>
+
+<h1>Villes disponibles</h1>
+
+<!-- Boucle pour afficher chaque ville -->
+<div th:each="city : ${cities}">
+  <h2 th:text="${city.name}">Nom de la ville</h2>
+
+  <!-- Lien pour afficher les hôtels de cette ville -->
+  <a th:href="@{/city/{cityId}(cityId=${city.id})}">Voir les hôtels de la ville</a>
+</div>
+
+</body>
+</html>
