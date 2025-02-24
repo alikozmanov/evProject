@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -31,16 +32,31 @@ public class Hotel implements Serializable {
     @Column(length = 50)
     private String phone;
 
-    @Column(length = 255)
-    private String stars;
+    @Column(nullable = false)
+    private int stars;
 
-    @Column(length = 255)
-    private String rooms;
+    @Column(nullable = false)
+    private int rooms;
+
+    @Column(nullable = false)
+    private double priceMin;
 
     @ManyToOne
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
-    @OneToMany(mappedBy = "hotel")
-    private Collection<Bedroom> bedrooms;
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    private Collection<Bedroom> bedrooms = new ArrayList<>(); // Initialiser à vide
+
+
+    public Hotel(String name, String address, String phone, int stars, int rooms, double priceMin, City city) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.stars = stars;
+        this.rooms = rooms;
+        this.priceMin = priceMin;
+        this.city = city;
+        this.bedrooms = new ArrayList<>(); // Initialisation avec une collection vide
+    }
 }

@@ -15,6 +15,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @SpringBootApplication
@@ -47,32 +48,23 @@ public class EvalProjectApplication implements CommandLineRunner {
 	private void generateDatas() {
 		City paris = new City("Paris", "Hyatt Regency Paris Étoile");
 		City newYork = new City("New York", "Colgate Inn");
-		City london = new City("London", "The Ritz London");
-		City tokyo = new City("Tokyo", "The Peninsula Tokyo");
-		City rome = new City("Rome", "Hotel de Russie");
-		City sydney = new City("Sydney", "The Langham Sydney");
-		City berlin = new City("Berlin", "Hotel Adlon Kempinski");
-		City madrid = new City("Madrid", "Hotel Ritz Madrid");
-		City losAngeles = new City("Los Angeles", "The Beverly Hills Hotel");
-		City dubai = new City("Dubai", "Burj Al Arab Jumeirah");
-		City amsterdam = new City("Amsterdam", "Hotel De L’Europe");
-		City barcelona = new City("Barcelona", "Hotel Arts Barcelona");
-		City venice = new City("Venice", "Aman Venice");
-		City prague = new City("Prague", "Four Seasons Hotel Prague");
 
 		cityRepository.save(paris);
 		cityRepository.save(newYork);
-		cityRepository.save(london);
-		cityRepository.save(tokyo);
-		cityRepository.save(rome);
-		cityRepository.save(sydney);
-		cityRepository.save(berlin);
-		cityRepository.save(madrid);
-		cityRepository.save(losAngeles);
-		cityRepository.save(dubai);
-		cityRepository.save(amsterdam);
-		cityRepository.save(barcelona);
-		cityRepository.save(venice);
-		cityRepository.save(prague);
+
+		// Création des hôtels associés à Paris
+		Hotel parisHotel = new Hotel("Hyatt Regency Paris", "Paris, France", "01 44 05 85 00", 5, 200, 150.00, paris);
+		Hotel newYorkHotel = new Hotel("Colgate Inn", "New York, USA", "212-123-4567", 4, 100, 120.00, newYork);
+
+		hotelRepository.save(parisHotel);
+		hotelRepository.save(newYorkHotel);
+
+		// Création des chambres pour Paris
+		Bedroom parisBedroom1 = new Bedroom("Suite", 250.00, parisHotel);
+		Bedroom parisBedroom2 = new Bedroom("Standard", 150.00, parisHotel);
+
+		bedroomRepository.save(parisBedroom1);
+		bedroomRepository.save(parisBedroom2);
 	}
+
 }

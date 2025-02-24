@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -33,5 +34,13 @@ public class Bedroom implements Serializable {
     private Hotel hotel;
 
     @OneToMany(mappedBy = "bedroom")
-    private Collection<Reservation> reservations;
+    private Collection<Reservation> reservations = new ArrayList<>(); // Initialisation avec une collection vide
+
+    // Constructeur sans collection de réservations
+    public Bedroom(String type, double pricePerNight, Hotel hotel) {
+        this.type = type;
+        this.pricePerNight = pricePerNight;
+        this.hotel = hotel;
+        this.reservations = new ArrayList<>(); // Initialisation avec une collection vide
+    }
 }

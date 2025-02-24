@@ -32,7 +32,6 @@ public class City implements Serializable {
     private Collection<Hotel> hotels;
 
     public City(String name, String hotel) {
-        this.id = id;
         this.name = name;
         this.hotel = hotel;
     }
