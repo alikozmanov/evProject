@@ -1,5 +1,6 @@
 package fr.fms.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class City implements Serializable {
     private String hotel;
 
     @OneToMany(mappedBy = "city")
+    @JsonIgnore // Evite la sérialisation récursive
     private Collection<Hotel> hotels;
 
     public City(String name, String hotel) {

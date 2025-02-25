@@ -1,19 +1,25 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Villes et Hôtels</title>
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <title>Villes et Hôtels</title>-->
+<!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body class="container mt-4">-->
 
-<h1>Tous les hôtels partenaires</h1>
+<!--<div class="alert alert-primary text-center" role="alert">-->
+<!--  Bienvenue sur notre site des villes et hôtels partenaires !-->
+<!--</div>-->
 
-<!-- Boucle pour afficher chaque ville -->
-<div th:each="city : ${cities}">
-  <h2 th:text="${city.name}">Nom de la ville</h2>
+<!--<h1 class="text-center">Tous les hôtels partenaires</h1>-->
 
-  <!-- Lien pour afficher les hôtels de cette ville -->
-  <a th:href="@{/city/{cityId}(cityId=${city.id})}">Voir les hôtels de la ville</a>
-</div>
+<!--&lt;!&ndash; Boucle pour afficher chaque ville &ndash;&gt;-->
+<!--<div th:each="city : ${cities}" class="card mt-3">-->
+<!--  <div class="card-body">-->
+<!--    <h2 class="card-title" th:text="${city.name}">Nom de la ville</h2>-->
+<!--    &lt;!&ndash; Lien pour afficher les hôtels &ndash;&gt;-->
+<!--    <a th:href="@{/city/{cityId}(cityId=${city.id})}" class="btn btn-primary">Voir les hôtels de la ville</a>-->
+<!--  </div>-->
+<!--</div>-->
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

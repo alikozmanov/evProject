@@ -1,5 +1,6 @@
 package fr.fms.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,9 +44,11 @@ public class Hotel implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "city_id", nullable = false)
+    @JsonIgnore // Evite la sérialisation
     private City city;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    @JsonIgnore // Evite la sérialisation
     private Collection<Bedroom> bedrooms = new ArrayList<>(); // Initialiser à vide
 
 

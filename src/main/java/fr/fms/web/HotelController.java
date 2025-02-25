@@ -3,13 +3,16 @@ package fr.fms.web;
 import fr.fms.dao.CityRepository;
 import fr.fms.dao.HotelRepository;
 import fr.fms.entities.City;
+import fr.fms.entities.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api")
+@CrossOrigin("*")  // Permettre l'accès depuis Angular
 public class HotelController {
 
     @Autowired
@@ -18,24 +21,21 @@ public class HotelController {
     @Autowired
     private HotelRepository hotelRepository;
 
-    // Afficher toutes les villes et leurs hôtels associés
+    // Récupérer toutes les villes
     @GetMapping("/cities")
-    public String showCities(Model model) {
-        // Récupérer toutes les villes
-        Iterable<City> cities = cityRepository.findAll();
-        model.addAttribute("cities", cities); // Ajouter les villes au modèle
-        return "cities";
+    public List<City> getCities() {
+        return (List<City>) cityRepository.findAll();
     }
 
-    // Afficher les hôtels d'une ville spécifique
-    @GetMapping("/city/{cityId}")
-    public String showHotelsInCity(@PathVariable long cityId, Model model) {
-        City city = cityRepository.findById(cityId).orElse(null);
-        if (city != null) {
-            model.addAttribute("city", city);
-            model.addAttribute("hotels", city.getHotels()); // Ajouter les hôtels de la ville
-        }
-        return "cityDetails";
+    // Récupérer une ville par ID avec ses hôtels
+    @GetMapping("/cities/{id}")
+    public Optional<City> getCityById(@PathVariable Long id) {
+        return cityRepository.findById(id);
+    }
+
+    // Récupérer tous les hôtels
+    @GetMapping("/hotels")
+    public List<Hotel> getHotels() {
+        return (List<Hotel>) hotelRepository.findAll();
     }
 }
-
