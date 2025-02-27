@@ -38,4 +38,12 @@ public class HotelController {
     public List<Hotel> getHotels() {
         return (List<Hotel>) hotelRepository.findAll();
     }
+
+    // Rechercher des hôtels par mot-clé
+    @GetMapping("/hotels/search")
+    public List<Hotel> searchHotels(@RequestParam String keyword) {
+        // Recherche par nom d'hôtel ou par ville
+        return hotelRepository.findByNameContainingIgnoreCaseOrCityNameContainingIgnoreCase(keyword, keyword);
+    }
 }
+

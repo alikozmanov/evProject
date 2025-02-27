@@ -1,22 +1,19 @@
 package fr.fms.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Entity
 @Table(name = "T_Hotel")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "bedrooms")
+@JsonIgnoreProperties({"city"}) // Ignore la ville pour éviter la sérialisation infinie
 public class Hotel implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -42,16 +39,14 @@ public class Hotel implements Serializable {
     @Column(nullable = false)
     private double priceMin;
 
+    @Column(length = 255)
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "city_id", nullable = false)
-    @JsonIgnore // Evite la sérialisation
     private City city;
 
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
-    @JsonIgnore // Evite la sérialisation
-    private Collection<Bedroom> bedrooms = new ArrayList<>(); // Initialiser à vide
-
-
+    // Constructeur sans imageUrl
     public Hotel(String name, String address, String phone, int stars, int rooms, double priceMin, City city) {
         this.name = name;
         this.address = address;
@@ -60,6 +55,11 @@ public class Hotel implements Serializable {
         this.rooms = rooms;
         this.priceMin = priceMin;
         this.city = city;
-        this.bedrooms = new ArrayList<>(); // Initialisation avec une collection vide
+    }
+
+    // Constructeur avec imageUrl
+    public Hotel(String name, String address, String phone, int stars, int rooms, double priceMin, City city, String imageUrl) {
+        this(name, address, phone, stars, rooms, priceMin, city);
+        this.imageUrl = imageUrl;
     }
 }

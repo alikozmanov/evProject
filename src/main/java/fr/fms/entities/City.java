@@ -1,13 +1,10 @@
 package fr.fms.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
@@ -15,9 +12,7 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "hotels")
-public class City implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class City {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +22,19 @@ public class City implements Serializable {
     private String name;
 
     @Column(length = 255)
-    private String hotel;
+    private String imageUrl; // Champ pour stocker l'URL de l'image
 
     @OneToMany(mappedBy = "city")
-    @JsonIgnore // Evite la sérialisation récursive
     private Collection<Hotel> hotels;
 
-    public City(String name, String hotel) {
+    // Constructeur sans imageUrl
+    public City(String name) {
         this.name = name;
-        this.hotel = hotel;
+    }
+
+    // Constructeur avec imageUrl
+    public City(String name, String imageUrl) {
+        this.name = name;
+        this.imageUrl = imageUrl;
     }
 }
