@@ -5,6 +5,7 @@ import fr.fms.dao.HotelRepository;
 import fr.fms.entities.City;
 import fr.fms.entities.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,11 +40,48 @@ public class HotelController {
         return (List<Hotel>) hotelRepository.findAll();
     }
 
-    // Rechercher des hôtels par mot-clé
+    // Rechercher des hôtels par mot-clé (nom ou ville)
     @GetMapping("/hotels/search")
     public List<Hotel> searchHotels(@RequestParam String keyword) {
-        // Recherche par nom d'hôtel ou par ville
         return hotelRepository.findByNameContainingIgnoreCaseOrCityNameContainingIgnoreCase(keyword, keyword);
     }
-}
 
+    // Récupérer un hôtel par ID
+    @GetMapping("/hotels/{id}")
+    public ResponseEntity<?> getHotelById(@PathVariable Long id) {
+        Optional<Hotel> hotel = hotelRepository.findById(id);
+        return hotel.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Ajouter un nouvel hôtel
+    @PostMapping("/hotels")
+    public Hotel createHotel(@RequestBody Hotel hotel) {
+        return hotelRepository.save(hotel);
+    }
+
+    // Modifier un hôtel existant
+    @PutMapping("/hotels/{id}")
+    public ResponseEntity<?> updateHotel(@PathVariable Long id, @RequestBody Hotel hotelDetails) {
+        return hotelRepository.findById(id).map(hotel -> {
+            hotel.setName(hotelDetails.getName());
+            hotel.setAddress(hotelDetails.getAddress());
+            hotel.setStars(hotelDetails.getStars());
+            hotel.setPriceMin(hotelDetails.getPriceMin());
+            hotel.setPhone(hotelDetails.getPhone());
+            hotel.setRooms(hotelDetails.getRooms());
+            hotel.setImageUrl(hotelDetails.getImageUrl());
+            hotelRepository.save(hotel);
+            return ResponseEntity.ok(hotel);
+        }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Supprimer un hôtel
+    @DeleteMapping("/hotels/{id}")
+    public ResponseEntity<?> deleteHotel(@PathVariable Long id) {
+        return hotelRepository.findById(id).map(hotel -> {
+            hotelRepository.delete(hotel);
+            return ResponseEntity.ok().build();
+        }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+}
